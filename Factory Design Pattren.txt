@@ -1,0 +1,132 @@
+/******************************************************************************
+FACTORY DESIGN PATTREN:A Factory Pattern or Factory Method Pattern says that
+just define an interface or abstract class for creating an object
+but let the subclasses decide which class to instantiate. 
+In other words, subclasses are responsible to create the instance of the class.
+
+->the object creation is run time.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+class Toy {
+    protected:
+    string name;
+    float price;
+    public:
+    virtual void prepairParts()=0;
+    virtual void combainedParts()=0;
+    virtual void assembleParts()=0;
+    virtual void applyLabel()=0;
+    virtual void showProduct()=0;
+};
+class Car : public Toy {
+    public:
+    void prepairParts() {cout<<"prepairParts for car"<<endl;}
+    void combainedParts() {cout<<"prepairParts for car"<<endl;}
+    void assembleParts() {cout<<"prepairParts for car"<<endl;}
+    void applyLabel() {cout<<"prepairParts for car"<<endl;
+    name="Car";price=10000;}
+    void showProduct() { cout<<"Name:"<<name<<" "<<"price:"<<price<<endl;}
+    
+};
+class Bike : public Toy {
+    public:
+    void prepairParts() {cout<<"prepairParts for Bike"<<endl;}
+    void combainedParts() {cout<<"prepairParts for Bike"<<endl;}
+    void assembleParts() {cout<<"prepairParts for Bike"<<endl;}
+    void applyLabel() {cout<<"prepairParts for Bike"<<endl;
+    name="Bike";price=10000;}
+    void showProduct() { cout<<"Name:"<<name<<" "<<"price:"<<price<<endl;}
+    
+};
+class Plane : public Toy {
+    public:
+    void prepairParts() {cout<<"prepairParts for Bike"<<endl;}
+    void combainedParts() {cout<<"prepairParts for Bike"<<endl;}
+    void assembleParts() {cout<<"prepairParts for Bike"<<endl;}
+    void applyLabel() {cout<<"prepairParts for Bike"<<endl;
+    name="Bike";price=10000;}
+    void showProduct() { cout<<"Name:"<<name<<" "<<"price:"<<price<<endl;}
+    
+};
+
+class ToyFactory {
+    public:
+    static Toy* createToy(int type) {
+        Toy *toy=NULL;
+        switch(type) {
+            case 1: {
+                toy = new Car;
+                break;
+            }
+            case 2: {
+                toy = new Bike;
+                break;
+            }
+            case 3: {
+                toy = new Plane;
+                break;
+            }
+            default : {
+                cout<<"Invalid toy type please re-enter type"<<endl;
+            }
+        }
+        toy->prepairParts();
+        toy->combainedParts();
+        toy->assembleParts();
+        toy->applyLabel();
+        return toy;
+    }
+};
+int main() {
+    int type;
+    while(1) {
+        cout<<"enter the type or zero for exit"<<endl;
+        cin>>type;
+        if(!type) 
+        break;
+        Toy *v=ToyFactory::createToy(type);
+        if(v) {
+            v->showProduct();
+            delete v;
+        }
+    }
+    cout<<"exit..."<<endl;
+    return 0;
+}
+
+//output:-1
+
+//enter the type or zero for exit
+//0
+//exit...
+   
+//output:-2   
+     
+//enter the type or zero for exit
+//1
+//prepairParts for car
+//prepairParts for car
+//prepairParts for car
+//prepairParts for car
+//Name:Car price:10000
+//enter the type or zero for exit
+//2
+//prepairParts for Bike
+//prepairParts for Bike
+//prepairParts for Bike
+//prepairParts for Bike
+//Name:Bike price:10000
+//enter the type or zero for exit
+//3
+//prepairParts for Bike
+//prepairParts for Bike
+//prepairParts for Bike
+//prepairParts for Bike
+//Name:Bike price:10000
+//enter the type or zero for exit
+//4
+//Invalid toy type please re-enter type
